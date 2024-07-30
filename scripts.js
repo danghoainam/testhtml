@@ -1,6 +1,9 @@
 document.getElementById("login").addEventListener("click", function () {
   login();
 });
+document.getElementById("relogin").addEventListener("click", function () {
+  login();
+});
 function getlist() {
   const url =
     "https://gateway.mm-live.online/live-client/live/new/4231/1529/list";
