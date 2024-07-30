@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.8.0/tcplayer.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      body {
+        height: 100vh;
+        font-weight: 400;
+        font-size: 16px;
+        background-color: #000;
+        line-height: 1;
+      }
+
+      .player-container-id-dimensions {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .video-js {
+        width: 100%;
+        height: 100%;
+      }
+
+      .vjs-big-play-button {
+        display: none !important;
+      }
+
+      #pause {
+        display: block;
+        position: fixed;
+        width: 10vw;
+        height: 10vw;
+        max-width: 160px;
+        max-height: 160px;
+        min-width: 80px;
+        min-height: 80px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+      }
+
+      .vjs-modal-dialog-content {
+        background-image: url("/thumbnail2.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+
+      .vjs-errors-dialog {
+        background: #00000000;
+      }
+
+      .vjs-errors-content-container {
+        display: none;
+      }
+      *::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+      *::-webkit-scrollbar-track {
+        width: 0;
+        height: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      id="player-container-id"
+      preload="auto"
+      playsinline
+      webkit-playsinline
+      autoplay
+      onerror="errorVide"
+      onpause="pauseLive()"
+      onplay="playLive()"
+      onload="loadLive()"
+    ></video>
+    <div id="pause" onclick="playLive()">
+      <img src="/play-icon.png" />
+    </div>
+    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.8.0/tcplayer.v4.8.0.min.js"></script>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const link = urlParams.get("link");
+      const txTime = urlParams.get("txTime");
+
+      const poster = window.location.search.split("?id=")[1];
+      const btnPause = document.getElementById("pause");
+      const video = document.getElementById("player-container-id");
+      console.log(link + "&" + `txTime=${txTime}`);
+      const player = TCPlayer("player-container-id", {
+        sources: [
+          {
+            src: link + "&" + `txTime=${txTime}`,
+            poster,
+          },
+        ],
+        language: "en",
+      });
+      function pauseLive() {
+        btnPause.style.display = "block";
+      }
+      function playLive() {
+        video.play();
+        btnPause.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
