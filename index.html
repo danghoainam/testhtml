@@ -8,15 +8,16 @@
   </head>
   <body>
     <h1>Danh sách live</h1>
-    <button id="login">Click login</button>
-    <button id="relogin">Click Relogin</button>
+
+    <button id="get_token">Lấy token mới nhất</button>
+    <button id="relogin">ReLogin</button>
     <div id="list_idol"></div>
     <script src="/scripts.js"></script>
     <script>
-      var token = localStorage.getItem("token");
-      if (token) {
-        document.getElementById("login").style.display = "none";
-      }
+      // var token = localStorage.getItem("token");
+      // if (token) {
+      //   document.getElementById("login").style.display = "none";
+      // }
     </script>
   </body>
 </html>

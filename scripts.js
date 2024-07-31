@@ -1,5 +1,5 @@
-document.getElementById("login").addEventListener("click", function () {
-  login();
+document.getElementById("get_token").addEventListener("click", function () {
+  get_token();
 });
 document.getElementById("relogin").addEventListener("click", function () {
   login();
@@ -32,6 +32,42 @@ function getlist() {
       console.error("Error:", error);
     });
 }
+function get_token() {
+  const url = "https://be-mmlive.vercel.app/users";
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    allow: "*",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      localStorage.setItem("token", JSON.stringify(data[0].token));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+function set_token(token) {
+  const url = "https://be-mmlive.vercel.app/users";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: 6, type: 1, token: token }), // Chuyển dữ liệu thành chuỗi JSON
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      localStorage.setItem("token", JSON.stringify(data.token));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 function login() {
   const url =
     "https://gateway.mm-live.online/center-client/sys/auth/new/phone/login";
@@ -55,7 +91,7 @@ function login() {
   })
     .then((response) => response.json())
     .then((data) => {
-      localStorage.setItem("token", JSON.stringify(data.data.token));
+      set_token(data.data.token);
     })
     .catch((error) => {
       console.error("Error:", error);
