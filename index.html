@@ -5,13 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Basic HTML Page</title>
     <link rel="stylesheet" href="/styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
   </head>
   <body>
     <h1>Danh sách live</h1>
 
     <button id="get_token">Lấy token mới nhất</button>
     <button id="relogin">ReLogin</button>
+
     <div id="list_idol"></div>
+    <button id="get_token_qq">Lấy token QQ</button>
+    <button id="relogin_qq">Login QQ</button>
+    QQlive
+    <div id="list_idol_qqllive"></div>
     <script src="/scripts.js"></script>
     <script>
       // var token = localStorage.getItem("token");

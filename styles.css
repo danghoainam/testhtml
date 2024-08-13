@@ -16,7 +16,8 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-#list_idol {
+#list_idol,
+#list_idol_qqllive {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 40px;
