@@ -33,11 +33,40 @@ function getlist() {
     });
 }
 function get_token() {
-  let token = localStorage.getItem("token");
-  localStorage.setItem("token", token);
+  const url = "https://be-mmlive.vercel.app/users";
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    allow: "*",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      localStorage.setItem("token", JSON.stringify(data[0].token));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 function set_token(token) {
-  localStorage.setItem("token", token);
+  const url = "https://be-mmlive.vercel.app/users";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: 1, type: 1, token: token }), // Chuyển dữ liệu thành chuỗi JSON
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      localStorage.setItem("token", JSON.stringify(data.token));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 function login() {
   const url =
