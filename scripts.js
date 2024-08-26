@@ -138,6 +138,32 @@ function decryptL(par) {
   let decryptData = decrypt(par, key, iv);
   return decryptData;
 }
+function decryptString(encryptedString) {
+  const key = "star@livega*963."; // Khóa giải mã
+  const iv = "0608040307010502"; // Vector khởi tạo (IV)
+
+  // Chuỗi đã mã hóa cần giải mã
+
+  // Hàm giải mã
+  function decrypt(encrypted, key, iv) {
+    try {
+      const parsedKey = CryptoJS.enc.Utf8.parse(key);
+      const parsedIv = CryptoJS.enc.Utf8.parse(iv);
+      const decrypted = CryptoJS.AES.decrypt(encrypted, parsedKey, {
+        iv: parsedIv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+      });
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption failed:", error);
+      return null;
+    }
+  }
+
+  // Thực hiện giải mã
+  return decrypt(encryptedString, key, iv);
+}
 
 ////////////
 function getlist() {
@@ -202,6 +228,39 @@ function getlistqq() {
       console.error("Error:", error);
     });
 }
+function getlistyy() {
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-index";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "511",
+      "dev-type": "H5",
+      area: "VN",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      pageNum: 1,
+      pageSize: 20,
+    }), // Chuyển dữ liệu thành chuỗi JSON
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      var html = ``;
+      for (var i = 0; i < data.records.length; i++) {
+        html += `<div class="liveyy" liveId="${data.records[i].id}" type="${data.records[i].payType}" liveStatus="${data.records[i].showType}" anchorId="${data.records[i].anchorId}"><p>${data.records[i].anchorNickname}</p><image style="width:120px;height:120px;object-fit: cover;" src="${data?.records[i].coverUrl}"/></div>`;
+      }
+      document.getElementById("list_idol_yyllive").innerHTML = html;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 function get_token(key) {
   const url = "https://be-mmlive.vercel.app/users";
 
@@ -215,7 +274,6 @@ function get_token(key) {
     .then((response) => response.json())
     .then((data) => {
       const item = data.find((item) => item.key === key);
-
       localStorage.setItem(key, JSON.stringify(item.token));
     })
     .catch((error) => {
@@ -333,6 +391,19 @@ function addClickEventAfterDelay() {
       });
     }
   }, 2000); // 2000ms = 2 giây
+  setTimeout(function () {
+    var elements = document.getElementsByClassName("liveyy");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener("click", function () {
+        var liveId = this.getAttribute("liveId");
+        var anchorId = this.getAttribute("anchorId");
+        var liveStatus = this.getAttribute("liveStatus");
+        var type = this.getAttribute("type");
+
+        getLinkyy(liveId, anchorId, liveStatus, type);
+      });
+    }
+  }, 2000); // 2000ms = 2 giây
 }
 function getLink(liveId, anchorId, liveStatus, type) {
   const url = "https://gateway.mm-live.online/live-client/live/inter/room/220";
@@ -409,8 +480,39 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
       alert(error);
     });
 }
+function getLinkyy(liveId, anchorId, liveStatus, type) {
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "511",
+      "dev-type": "H5",
+      area: "VN",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      anchorId: anchorId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let link = decryptString(data.pullAddress);
+      console.log(link);
+      location.href = `/videoflv.html?link=${link.replaceAll("http", "https")}`;
+    })
+    .catch((error) => {
+      alert(error);
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
   getlist();
   getlistqq();
+  getlistyy();
   addClickEventAfterDelay();
 });

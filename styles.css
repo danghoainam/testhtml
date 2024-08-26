@@ -17,7 +17,8 @@ button {
   cursor: pointer;
 }
 #list_idol,
-#list_idol_qqllive {
+#list_idol_qqllive,
+#list_idol_yyllive {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 40px;
