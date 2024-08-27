@@ -1,60 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>NodePlayer.js Demo</title>
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <title>Tcplayer Demo</title>
-    <link
-      href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.9.1/tcplayer.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.9.1/tcplayer.v4.9.1.min.js"></script>
     <style>
-      html,
       body {
-        margin: 0;
         padding: 0;
-      }
-      .tcplayer {
-        margin: 0 auto;
+        margin: 0;
       }
 
-      @media only screen and (min-device-pixel-ratio: 2),
-        only screen and (-webkit-min-device-pixel-ratio: 2) {
-        .tcp-logo-img {
-          width: 50%;
-        }
+      .box {
+        margin: 8px 0;
+        display: flex;
       }
 
-      @media screen and (max-width: 480px) {
-        #player-container-id {
-          width: 100vw !important;
-          height: 100vh !important;
-        }
+      .fl1 {
+        flex: 1;
+      }
+
+      .fl0 {
+        flex: 0;
       }
     </style>
   </head>
-  <body>
-    <video
-      id="player-container-id"
-      preload="auto"
-      width="640"
-      height="360"
-      playsinline
-      webkit-playsinline
-    ></video>
 
+  <body>
+    <div style="max-width: 980px; margin: 0 auto">
+      <div style="width: 100%; padding-bottom: 56%; position: relative">
+        <canvas
+          id="video1"
+          style="
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            background-color: black;
+          "
+        ></canvas>
+      </div>
+      <div>
+        <div class="box">
+          <input
+            id="url"
+            class="fl1"
+            value="wss://aics-media-service-beta.southeastasia.cloudapp.azure.com:443/v1/clusters/testcluster/tasks/testtask?token=testtoken"
+          />
+          <button class="fl0" onclick="startFunc()">Play</button>
+          <button class="fl0" onclick="stopFunc()">Stop</button>
+          <button class="fl0" onclick="fullFunc()">Full</button>
+          <!-- <button class="fl0" onclick="screenshot()">ScreenShot</button> -->
+        </div>
+
+        <div class="box">
+          <div class="fl1">
+            <label>Volume:</label>
+            <select onchange="volumeChange(event);">
+              <option>100</option>
+              <option>75</option>
+              <option>50</option>
+              <option>25</option>
+              <option>0</option>
+            </select>
+          </div>
+          <div class="fl1">
+            <label>BufferTime:</label>
+            <select id="buffertime" onchange="bufferChange(event);">
+              <option>300</option>
+              <option>500</option>
+              <option selected>1000</option>
+              <option>2000</option>
+              <option>3000</option>
+            </select>
+          </div>
+          <div class="fl1">
+            <label>ScaleMode:</label>
+            <select onchange="scaleModeChange(event);">
+              <option>0</option>
+              <option selected>1</option>
+              <option>2</option>
+            </select>
+          </div>
+        </div>
+        <!-- /input-group -->
+      </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
+    <script type="text/javascript" src="./NodePlayer.min.js"></script>
     <script>
-      var player = TCPlayer("player-container-id", {
-        language: "en",
+      if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {
+        //手机开启vconsole，便于查看控制台调试信息，正式部署时无需使用，包括上面的vconsole.min.js也不用引入
+        var vConsole = new VConsole();
+      }
+
+      var url = document.getElementById("url");
+      /**
+       * 是否打印debug信息
+       */
+      // NodePlayer.debug(true);
+
+      var player;
+      // 0.5.28之后, 为了统一asm与wasm版本api差异,现统一采用回调格式加载.
+      NodePlayer.load(() => {
+        player = new NodePlayer();
+        /**
+         * 自动测试浏览器是否支持MSE播放，如不支持，仍然使用软解码。
+         * 紧随 new 后调用
+         * 不调用则只使用软解
+         */
+        // player.useMSE();
+
+        /**
+         * 开启屏幕常亮
+         * 在手机浏览器上,canvas标签渲染视频并不会像video标签那样保持屏幕常亮
+         * 如果需要该功能, 可以调用此方法, 会有少量cpu消耗, pc浏览器不会执行
+         * H5目前没有原生亮屏API，此为模拟实现，非全兼容。
+         */
+        // player.setKeepScreenOn();
+
+        /**
+         * 传入 canvas视图的id，当使用mse时，自动转换为video标签
+         */
+        player.setView("video1");
+
+        /**
+         * 设置最大缓冲时长，单位毫秒，只在软解时有效
+         */
+        player.setBufferTime(1000);
+
+        player.on("start", () => {
+          console.log("player on start");
+        });
+
+        player.on("stop", () => {
+          console.log("player on stop");
+        });
+
+        player.on("error", (e) => {
+          console.log("player on error", e);
+        });
+
+        player.on("videoInfo", (w, h, codec) => {
+          console.log(
+            "player on video info width=" +
+              w +
+              " height=" +
+              h +
+              " codec=" +
+              codec
+          );
+        });
+
+        player.on("audioInfo", (r, c, codec) => {
+          console.log(
+            "player on audio info samplerate=" +
+              r +
+              " channels=" +
+              c +
+              " codec=" +
+              codec
+          );
+        });
+
+        // player.on("videoSei", (sei, pts) => {
+        //   console.log("player on video sei=" + sei + " pts=" + pts);
+        // });
+
+        // player.on("videoFrame", (pts) => {
+        //   console.log("player on videoFrame pts=" + pts);
+        // });
+
+        // player.on("buffer", (state) => {
+        //   console.log("player on buffer state=" + state);
+        // });
+
+        player.on("stats", (stats) => {
+          console.log("player on stats=", stats);
+        });
       });
 
-      player.src(location.href.split("link=")[1]);
-      player.play();
+      function startFunc() {
+        /**
+         * 开始播放,参数为 http-flv或 websocket-flv 的url
+         */
+        player.start(url.value);
+      }
+      player.start(location.href.split("link=")[1]);
+      function stopFunc() {
+        /**
+         * 停止播放
+         */
+        player.stop();
+      }
+
+      function fullFunc() {
+        player.fullscreen();
+      }
+
+      function volumeChange(event) {
+        /**
+         * 设置音量
+         * 0.0  ~~ 1.0
+         * 当为0.0时,完全静音, 最大1.0
+         */
+        player.setVolume(event.target.value / 100.0);
+      }
+
+      function bufferChange(event) {
+        player.setBufferTime(event.target.value);
+      }
+
+      function scaleModeChange(event) {
+        /**
+         * 视频缩放模式, 当视频分辨率比例与Canvas显示区域比例不同时,缩放效果不同:
+         *  0 视频画面完全填充canvas区域,画面会被拉伸 --- 默认值
+         *  1 视频画面做等比缩放后,对齐Canvas区域,画面不被拉伸,但有黑边
+         *  2 视频画面做等比缩放后,完全填充Canvas区域,画面不被拉伸,没有黑边,但画面显示不全
+         * 软解时有效
+         */
+        player.setScaleMode(event.target.value);
+      }
+
+      function screenshot() {
+        // player.screenshot("np_screenshot.png", "png");
+        player.screenshot("np_screenshot.jpeg", "jpeg", 0.8);
+      }
     </script>
   </body>
 </html>
