@@ -56,16 +56,6 @@
 
         <div class="box">
           <div class="fl1">
-            <label>Volume:</label>
-            <select onchange="volumeChange(event);">
-              <option>100</option>
-              <option>75</option>
-              <option>50</option>
-              <option>25</option>
-              <option>0</option>
-            </select>
-          </div>
-          <div class="fl1">
             <label>BufferTime:</label>
             <select id="buffertime" onchange="bufferChange(event);">
               <option>300</option>
@@ -198,15 +188,6 @@
 
       function fullFunc() {
         player.fullscreen();
-      }
-
-      function volumeChange(event) {
-        /**
-         * 设置音量
-         * 0.0  ~~ 1.0
-         * 当为0.0时,完全静音, 最大1.0
-         */
-        player.setVolume(event.target.value / 100.0);
       }
 
       function bufferChange(event) {
