@@ -34,8 +34,8 @@
         <canvas
           id="video1"
           style="
-            width: 100vw;
-            height: calc(100vh - 150px);
+            width: 100%;
+            height: 100%;
             position: absolute;
             background-color: black;
           "
@@ -55,6 +55,16 @@
         </div>
 
         <div class="box">
+          <div class="fl1">
+            <label>Volume:</label>
+            <select onchange="volumeChange(event);">
+              <option>100</option>
+              <option>75</option>
+              <option>50</option>
+              <option>25</option>
+              <option>0</option>
+            </select>
+          </div>
           <div class="fl1">
             <label>BufferTime:</label>
             <select id="buffertime" onchange="bufferChange(event);">
@@ -100,7 +110,7 @@
          * 紧随 new 后调用
          * 不调用则只使用软解
          */
-        player.useMSE();
+        // player.useMSE();
 
         /**
          * 开启屏幕常亮
@@ -178,7 +188,6 @@
         player.start(url.value);
       }
       player.start(location.href.split("link=")[1]);
-      player.setVolume(100);
       function stopFunc() {
         /**
          * 停止播放
@@ -188,6 +197,15 @@
 
       function fullFunc() {
         player.fullscreen();
+      }
+
+      function volumeChange(event) {
+        /**
+         * 设置音量
+         * 0.0  ~~ 1.0
+         * 当为0.0时,完全静音, 最大1.0
+         */
+        player.setVolume(event.target.value / 100.0);
       }
 
       function bufferChange(event) {
