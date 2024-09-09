@@ -104,17 +104,15 @@
     <script>
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const link = urlParams.get("link");
-      const txTime = urlParams.get("txTime");
+      const link = location.href.split("?link=");
 
       const poster = window.location.search.split("?id=")[1];
       const btnPause = document.getElementById("pause");
       const video = document.getElementById("player-container-id");
-      console.log(link + "&" + `txTime=${txTime}`);
       const player = TCPlayer("player-container-id", {
         sources: [
           {
-            src: link + "&" + `txTime=${txTime}`,
+            src: link[1],
             poster,
           },
         ],

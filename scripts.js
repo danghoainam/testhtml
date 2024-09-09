@@ -504,7 +504,7 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
     .then((data) => {
       let link = decryptString(data.pullAddress);
       console.log(link);
-      location.href = `/videoflv.html?link=${link.replaceAll("http", "https")}`;
+      location.href = `/video.html?link=${link}`;
     })
     .catch((error) => {
       alert(error);
