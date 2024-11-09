@@ -313,7 +313,7 @@ function login() {
       timestamp: 1722330828163,
       udid: "4f20d7258366d7c7d1090af96474e260",
       model: "IOS",
-      password: "123456",
+      password: "namnam123",
       version: "1.0.2",
       softVersion: "1.0.0",
       mobile: "0708893821",
