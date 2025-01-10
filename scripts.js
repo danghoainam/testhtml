@@ -212,6 +212,7 @@ function getlistqq() {
       abc: "1723524119772aMyJ4QMkJxgtmhvp8vtg/OIrvycNydurD4aElgzdXh0=",
       qwe: "rxQFoAcPh/tfvPCxvf7brCjrwIPz9isOopVrEv4vo/0=",
     }), // Chuyển dữ liệu thành chuỗi JSON
+    referrerPolicy: "no-referrer",
   })
     .then((response) => response.json())
     .then((data) => {
