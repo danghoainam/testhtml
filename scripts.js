@@ -199,6 +199,7 @@ function getlistqq() {
 
   fetch(url, {
     method: "POST",
+     targetUrl: "https://qqlive.online/",
     headers: {
       "x-timestamp": 1723520610607,
       "x-udid": "05991a20be781bc01fd54e34a16021ed",
