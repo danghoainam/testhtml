@@ -199,7 +199,7 @@ function getlistqq() {
 
   fetch(url, {
     method: "POST",
-     targetUrl: "https://qqlive.online/",
+    targetUrl: "https://qqlive.online/",
     headers: {
       "x-timestamp": 1723520610607,
       "x-udid": "05991a20be781bc01fd54e34a16021ed",
@@ -231,7 +231,8 @@ function getlistqq() {
     });
 }
 function getlistyy() {
-  const url ="https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
 
   fetch(url, {
     method: "POST",
@@ -248,7 +249,7 @@ function getlistyy() {
     body: JSON.stringify({
       pageNum: 1,
       pageSize: 50,
-      labelId:1,
+      labelId: 1,
     }), // Chuyển dữ liệu thành chuỗi JSON
   })
     .then((response) => response.json())
@@ -512,7 +513,20 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
       alert(error);
     });
 }
+function get_token() {
+  const url = "https://be-mmlive.vercel.app/users";
+  fetch(url, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data?.map((item) => {
+        localStorage.setItem(item.key, JSON.stringify(item.token));
+      });
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
+  get_token();
   getlist();
   getlistqq();
   getlistyy();
