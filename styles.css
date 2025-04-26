@@ -18,7 +18,8 @@ button {
 }
 #list_idol,
 #list_idol_qqllive,
-#list_idol_yyllive {
+#list_idol_yyllive,
+#list_idol_789live {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 40px;

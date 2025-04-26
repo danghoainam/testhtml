@@ -264,6 +264,40 @@ function getlistyy() {
       console.error("Error:", error);
     });
 }
+function getlist789() {
+  const url =
+    "https://i.t3cdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "560",
+      "dev-type": "H5",
+      area: "VN",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      pageNum: 1,
+      pageSize: 50,
+      labelId: 1,
+    }), // Chuyển dữ liệu thành chuỗi JSON
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      var html = ``;
+      for (var i = 0; i < data.records.length; i++) {
+        html += `<div class="live789" liveId="${data.records[i].id}" type="${data.records[i].payType}" liveStatus="${data.records[i].showType}" anchorId="${data.records[i].anchorId}"><p>${data.records[i].anchorNickname}</p><image style="width:120px;height:120px;object-fit: cover;" src="${data?.records[i].coverUrl}"/></div>`;
+      }
+      document.getElementById("list_idol_789live").innerHTML = html;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 function get_token(key) {
   const url = "https://be-mmlive.vercel.app/users";
 
@@ -407,6 +441,19 @@ function addClickEventAfterDelay() {
       });
     }
   }, 2000); // 2000ms = 2 giây
+  setTimeout(function () {
+    var elements = document.getElementsByClassName("live789");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener("click", function () {
+        var liveId = this.getAttribute("liveId");
+        var anchorId = this.getAttribute("anchorId");
+        var liveStatus = this.getAttribute("liveStatus");
+        var type = this.getAttribute("type");
+
+        getLink789(liveId, anchorId, liveStatus, type);
+      });
+    }
+  }, 2000); // 2000ms = 2 giây
 }
 function getLink(liveId, anchorId, liveStatus, type) {
   const url = "https://gateway.mm-live.online/live-client/live/inter/room/220";
@@ -513,6 +560,36 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
       alert(error);
     });
 }
+function getLink789(liveId, anchorId, liveStatus, type) {
+  const url =
+    "https://api.t3cdn.com/560/api/live-service/v4/public/live/room-info";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "560",
+      "dev-type": "H5",
+      area: "VN",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      anchorId: anchorId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      let link = decryptString(data.unlDefPa);
+      console.log(link);
+      location.href = `/video.html?link=${link}`;
+    })
+    .catch((error) => {
+      alert(error);
+    });
+}
 function get_token() {
   const url = "https://be-mmlive.vercel.app/users";
   fetch(url, {
@@ -530,5 +607,6 @@ document.addEventListener("DOMContentLoaded", function () {
   getlist();
   getlistqq();
   getlistyy();
+  getlist789();
   addClickEventAfterDelay();
 });
