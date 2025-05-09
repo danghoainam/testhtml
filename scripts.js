@@ -168,7 +168,7 @@ function decryptString(encryptedString) {
 ////////////
 function getlist() {
   const url =
-    "https://gateway.mm-live.online/live-client/live/new/4231/1529/list";
+    "https://gateway.mmlive.online/live-client/live/new/4231/1529/list";
 
   fetch(url, {
     method: "POST",
@@ -337,7 +337,7 @@ function set_token(key, token) {
 }
 function login() {
   const url =
-    "https://gateway.mm-live.online/center-client/sys/auth/new/phone/login";
+    "https://gateway.mmlive.online/center-client/sys/auth/new/phone/login";
 
   fetch(url, {
     method: "POST",
@@ -456,7 +456,7 @@ function addClickEventAfterDelay() {
   }, 2000); // 2000ms = 2 giây
 }
 function getLink(liveId, anchorId, liveStatus, type) {
-  const url = "https://gateway.mm-live.online/live-client/live/inter/room/220";
+  const url = "https://gateway.mmlive.online/live-client/live/inter/room/220";
   var token = localStorage.getItem("mmlive");
   token = token.replace(/"/g, "");
 
