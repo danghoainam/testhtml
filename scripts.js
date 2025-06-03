@@ -168,7 +168,7 @@ function decryptString(encryptedString) {
 ////////////
 function getlist() {
   const url =
-    "https://gateway.mmlive.online/live-client/live/new/4231/1529/list";
+    "https://gateway.mm-live.online/live-client/live/new/4231/1529/list";
 
   fetch(url, {
     method: "POST",
@@ -231,16 +231,26 @@ function getlistqq() {
     });
 }
 function getlistyy() {
-  // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/functions/proxy-live";
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
 
   fetch(url, {
     method: "POST",
     headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "511",
+      "dev-type": "H5",
+      area: "VN",
       "Content-Type": "application/json",
     },
-    // Nếu muốn truyền tham số động, thêm body ở đây
-    // body: JSON.stringify({ pageNum: 1, pageSize: 50, labelId: 1 }),
+    body: JSON.stringify({
+      pageNum: 1,
+      pageSize: 50,
+      labelId: 1,
+    }), // Chuyển dữ liệu thành chuỗi JSON
   })
     .then((response) => response.json())
     .then((data) => {
@@ -255,16 +265,26 @@ function getlistyy() {
     });
 }
 function getlist789() {
-  // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "http://localhost:3001/api/proxy-live-789";
+  const url =
+    "https://i.t3cdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
 
   fetch(url, {
     method: "POST",
     headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "560",
+      "dev-type": "H5",
+      area: "VN",
       "Content-Type": "application/json",
     },
-    // Nếu muốn truyền tham số động, thêm body ở đây
-    // body: JSON.stringify({ pageNum: 1, pageSize: 50, labelId: 1 }),
+    body: JSON.stringify({
+      pageNum: 1,
+      pageSize: 50,
+      labelId: 1,
+    }), // Chuyển dữ liệu thành chuỗi JSON
   })
     .then((response) => response.json())
     .then((data) => {
@@ -317,7 +337,7 @@ function set_token(key, token) {
 }
 function login() {
   const url =
-    "https://gateway.mmlive.online/center-client/sys/auth/new/phone/login";
+    "https://gateway.mm-live.online/center-client/sys/auth/new/phone/login";
 
   fetch(url, {
     method: "POST",
@@ -436,7 +456,7 @@ function addClickEventAfterDelay() {
   }, 2000); // 2000ms = 2 giây
 }
 function getLink(liveId, anchorId, liveStatus, type) {
-  const url = "https://gateway.mmlive.online/live-client/live/inter/room/220";
+  const url = "https://gateway.mm-live.online/live-client/live/inter/room/220";
   var token = localStorage.getItem("mmlive");
   token = token.replace(/"/g, "");
 
@@ -511,6 +531,7 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
     });
 }
 function getLinkyy(liveId, anchorId, liveStatus, type) {
+  debugger;
   const url =
     "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
 
@@ -532,11 +553,13 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
   })
     .then((response) => response.json())
     .then((data) => {
+      debugger;
       let link = decryptString(data.pullAddress);
       console.log(link);
       location.href = `/video.html?link=${link}`;
     })
     .catch((error) => {
+      debugger;
       alert(error);
     });
 }
