@@ -231,26 +231,16 @@ function getlistqq() {
     });
 }
 function getlistyy() {
-  const url =
-    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+  // Gọi tới Node.js proxy server thay vì API gốc
+  const url = "http://localhost:3001/api/proxy-live";
 
   fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
-      "x-frame-options": "DENY",
-      "x-content-type-option": "nosniff",
-      "locale-language": "VIT",
-      merchantid: "511",
-      "dev-type": "H5",
-      area: "VN",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      pageNum: 1,
-      pageSize: 50,
-      labelId: 1,
-    }), // Chuyển dữ liệu thành chuỗi JSON
+    // Nếu muốn truyền tham số động, thêm body ở đây
+    // body: JSON.stringify({ pageNum: 1, pageSize: 50, labelId: 1 }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -265,26 +255,16 @@ function getlistyy() {
     });
 }
 function getlist789() {
-  const url =
-    "https://i.t3cdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+  // Gọi tới Node.js proxy server thay vì API gốc
+  const url = "http://localhost:3001/api/proxy-live-789";
 
   fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
-      "x-frame-options": "DENY",
-      "x-content-type-option": "nosniff",
-      "locale-language": "VIT",
-      merchantid: "560",
-      "dev-type": "H5",
-      area: "VN",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      pageNum: 1,
-      pageSize: 50,
-      labelId: 1,
-    }), // Chuyển dữ liệu thành chuỗi JSON
+    // Nếu muốn truyền tham số động, thêm body ở đây
+    // body: JSON.stringify({ pageNum: 1, pageSize: 50, labelId: 1 }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -531,8 +511,7 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
     });
 }
 function getLinkyy(liveId, anchorId, liveStatus, type) {
-  const url =
-    "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
+  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/api/proxy-live";
 
   fetch(url, {
     method: "POST",
