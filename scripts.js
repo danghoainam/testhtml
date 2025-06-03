@@ -232,8 +232,7 @@ function getlistqq() {
 }
 function getlistyy() {
   // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "http://localhost:3001/api/proxy-live";
-
+  const url = "https://mmlive-one.vercel.app/api/proxy-live";
   fetch(url, {
     method: "POST",
     headers: {
@@ -256,7 +255,7 @@ function getlistyy() {
 }
 function getlist789() {
   // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "http://localhost:3001/api/proxy-live-789";
+  const url = "https://mmlive-one.vercel.app/api/proxy-live-789";
 
   fetch(url, {
     method: "POST",
