@@ -232,7 +232,7 @@ function getlistqq() {
 }
 function getlistyy() {
   // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/api/proxy-live";
+  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/functions/proxy-live";
 
   fetch(url, {
     method: "POST",
