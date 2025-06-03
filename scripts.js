@@ -232,7 +232,7 @@ function getlistqq() {
 }
 function getlistyy() {
   // Gọi tới Node.js proxy server thay vì API gốc
-  const url = "http://localhost:3001/api/proxy-live";
+  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/api/proxy-live";
 
   fetch(url, {
     method: "POST",
@@ -511,7 +511,8 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
     });
 }
 function getLinkyy(liveId, anchorId, liveStatus, type) {
-  const url = "https://luminous-sfogliatella-fea5ac.netlify.app/api/proxy-live";
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
 
   fetch(url, {
     method: "POST",
