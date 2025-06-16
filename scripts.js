@@ -231,26 +231,18 @@ function getlistqq() {
     });
 }
 function getlistyy() {
-  const url =
-    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+  const url = "/api/proxy-live";
 
   fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
-      "x-frame-options": "DENY",
-      "x-content-type-option": "nosniff",
-      "locale-language": "VIT",
-      merchantid: "511",
-      "dev-type": "H5",
-      area: "VN",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       pageNum: 1,
       pageSize: 50,
       labelId: 1,
-    }), // Chuyển dữ liệu thành chuỗi JSON
+    }),
   })
     .then((response) => response.json())
     .then((data) => {

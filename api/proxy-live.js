@@ -1,13 +1,14 @@
-import fetch from "node-fetch";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(405).json({ error: "Method not allowed" });
-    return;
+    return res.status(405).json({ error: "Method not allowed" });
   }
+
+  const fetch = (...args) =>
+    import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
   try {
     const url =
-      "https://i.t3cdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+      "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
         "x-frame-options": "DENY",
         "x-content-type-option": "nosniff",
         "locale-language": "VIT",
-        merchantid: "560",
+        merchantid: "511",
         "dev-type": "H5",
         area: "VN",
         "Content-Type": "application/json",
