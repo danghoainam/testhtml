@@ -168,7 +168,7 @@ function decryptString(encryptedString) {
 ////////////
 function getlist() {
   const url =
-    "https://gateway.mm-live.online/live-client/live/new/4231/1529/list";
+    "https://gateway.mmlive.online/live-client/live/new/4231/1529/list";
 
   fetch(url, {
     method: "POST",
@@ -177,9 +177,11 @@ function getlist() {
       "x-udid": "4f20d7258366d7c7d1090af96474e260",
       "x-sign": "0d315027f868dd33df0f8640b3724437",
       Referer: "https://mm-live.online",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ type: 1, uid: 2026328074 }), // Chuyển dữ liệu thành chuỗi JSON
+    body: JSON.stringify({ type: 1, uid: 2026328074 }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -206,13 +208,15 @@ function getlistqq() {
       "x-sign": "61efc8af4c507a4859784791fa5a697a",
       "Content-Type": "application/json",
       Referer: "https://qqlive.online/",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       appid: "QQlive",
       "p-ae": "n",
     },
     body: JSON.stringify({
       abc: "1723524119772aMyJ4QMkJxgtmhvp8vtg/OIrvycNydurD4aElgzdXh0=",
       qwe: "rxQFoAcPh/tfvPCxvf7brCjrwIPz9isOopVrEv4vo/0=",
-    }), // Chuyển dữ liệu thành chuỗi JSON
+    }),
     referrerPolicy: "no-referrer",
   })
     .then((response) => response.json())
@@ -231,18 +235,29 @@ function getlistqq() {
     });
 }
 function getlistyy() {
-  const url = "/api/proxy-live";
+  const url =
+    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
 
   fetch(url, {
     method: "POST",
     headers: {
+      Authorization: `Basic d2ViLXBsYXllcjp3ZWJQbGF5ZXIyMDIyKjk2My4hQCM=`,
+      "x-frame-options": "DENY",
+      "x-content-type-option": "nosniff",
+      "locale-language": "VIT",
+      merchantid: "511",
+      "dev-type": "H5",
+      area: "VN",
       "Content-Type": "application/json",
+      Referer: "https://ten-trang-web-cua-ban.com",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     },
     body: JSON.stringify({
       pageNum: 1,
       pageSize: 50,
       labelId: 1,
-    }),
+    }), // Chuyển dữ liệu thành chuỗi JSON
   })
     .then((response) => response.json())
     .then((data) => {
@@ -271,6 +286,9 @@ function getlist789() {
       "dev-type": "H5",
       area: "VN",
       "Content-Type": "application/json",
+      Referer: "https://ten-trang-web-cua-ban.com",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     },
     body: JSON.stringify({
       pageNum: 1,
@@ -329,7 +347,7 @@ function set_token(key, token) {
 }
 function login() {
   const url =
-    "https://gateway.mm-live.online/center-client/sys/auth/new/phone/login";
+    "https://gateway.mmlive.online/center-client/sys/auth/new/phone/login";
 
   fetch(url, {
     method: "POST",
@@ -369,6 +387,8 @@ function loginqq() {
       "x-sign": "61efc8af4c507a4859784791fa5a697a",
       "Content-Type": "application/json",
       Referer: "https://qqlive.online/",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       appid: "QQlive",
       "p-ae": "n",
     },
@@ -448,7 +468,7 @@ function addClickEventAfterDelay() {
   }, 2000); // 2000ms = 2 giây
 }
 function getLink(liveId, anchorId, liveStatus, type) {
-  const url = "https://gateway.mm-live.online/live-client/live/inter/room/220";
+  const url = "https://gateway.mmlive.online/live-client/live/inter/room/220";
   var token = localStorage.getItem("mmlive");
   token = token.replace(/"/g, "");
 
@@ -460,6 +480,8 @@ function getLink(liveId, anchorId, liveStatus, type) {
       "x-udid": "4f20d7258366d7c7d1090af96474e260",
       "x-sign": "0d315027f868dd33df0f8640b3724437",
       Referer: "https://mm-live.online",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -494,6 +516,8 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
       "x-udid": "05991a20be781bc01fd54e34a16021ed",
       "x-sign": "61efc8af4c507a4859784791fa5a697a",
       Referer: "https://qqlive.online/",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       "Content-Type": "application/json",
       "p-ae": "n",
     },
@@ -523,7 +547,6 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
     });
 }
 function getLinkyy(liveId, anchorId, liveStatus, type) {
-  debugger;
   const url =
     "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
 
@@ -538,6 +561,9 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
       "dev-type": "H5",
       area: "VN",
       "Content-Type": "application/json",
+      Referer: "https://ten-trang-web-cua-ban.com",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     },
     body: JSON.stringify({
       anchorId: anchorId,
@@ -545,13 +571,11 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
   })
     .then((response) => response.json())
     .then((data) => {
-      debugger;
       let link = decryptString(data.pullAddress);
       console.log(link);
       location.href = `/video.html?link=${link}`;
     })
     .catch((error) => {
-      debugger;
       alert(error);
     });
 }
@@ -570,6 +594,9 @@ function getLink789(liveId, anchorId, liveStatus, type) {
       "dev-type": "H5",
       area: "VN",
       "Content-Type": "application/json",
+      Referer: "https://ten-trang-web-cua-ban.com",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     },
     body: JSON.stringify({
       anchorId: anchorId,
