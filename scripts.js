@@ -236,7 +236,7 @@ function getlistqq() {
 }
 function getlistyy() {
   const url =
-    "https://anywhere-six.vercel.app/https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
 
   fetch(url, {
     method: "POST",
