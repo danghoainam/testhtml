@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Game Test</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #1a1a1a;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .game-area {
+        width: 100%;
+        height: 400px;
+        background: #000;
+        border: 2px solid #333;
+        margin: 20px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin: 20px 0;
+      }
+      button {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      .info {
+        background: #333;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      .status {
+        background: #2c2c2c;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      .error {
+        background: #ff4444;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      .success {
+        background: #44ff44;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 Game Test Console</h1>
+
+      <div class="info">
+        <h3>📋 Hướng dẫn sử dụng:</h3>
+        <p>1. Mở file này trong trình duyệt</p>
+        <p>2. Mở Console (F12 → Console)</p>
+        <p>3. Sử dụng các lệnh gameHelper để điều chỉnh game</p>
+      </div>
+
+      <div class="game-area" id="gameArea">
+        <div
+          id="panel_loading"
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+          "
+        >
+          Loading Game...
+        </div>
+        <div
+          id="scoreText"
+          style="
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 16px;
+          "
+        >
+          Score: 0/0
+        </div>
+        <div
+          id="liveText"
+          style="
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            color: white;
+            font-size: 16px;
+          "
+        >
+          Lives: 3
+        </div>
+      </div>
+
+      <div class="controls">
+        <div>
+          <h4>🎯 Score Controls</h4>
+          <button onclick="setScore(1000)">Set Score: 1000</button>
+          <button onclick="addScore(500)">Add 500 Points</button>
+          <button onclick="setTargetScore(200)">Set Target: 200</button>
+        </div>
+
+        <div>
+          <h4>❤️ Lives Controls</h4>
+          <button onclick="setLives(10)">Set Lives: 10</button>
+          <button onclick="addLives(5)">Add 5 Lives</button>
+          <button onclick="setMaxLives(20)">Set Max Lives: 20</button>
+        </div>
+
+        <div>
+          <h4>🎮 Game Controls</h4>
+          <button onclick="startGame()">Start Game</button>
+          <button onclick="pauseGame()">Pause Game</button>
+          <button onclick="replayGame()">Replay Game</button>
+        </div>
+
+        <div>
+          <h4>🛡️ Cheat Controls</h4>
+          <button onclick="godMode()">God Mode</button>
+          <button onclick="instantWin()">Instant Win</button>
+          <button onclick="clearAll()">Clear All</button>
+        </div>
+      </div>
+
+      <div class="status" id="status">
+        <h4>📊 Game Status</h4>
+        <div id="statusContent">Waiting for game to load...</div>
+      </div>
+
+      <div class="info">
+        <h3>🔧 Console Commands:</h3>
+        <p><strong>gameHelper.setScore(1000)</strong> - Đặt điểm số</p>
+        <p><strong>gameHelper.addScore(500)</strong> - Thêm điểm</p>
+        <p><strong>gameHelper.setLives(10)</strong> - Đặt số mạng</p>
+        <p><strong>gameHelper.godMode()</strong> - Kích hoạt God Mode</p>
+        <p><strong>gameHelper.instantWin()</strong> - Thắng ngay lập tức</p>
+        <p><strong>gameHelper.getGameInfo()</strong> - Xem thông tin game</p>
+      </div>
+    </div>
+
+    <!-- Load game scripts -->
+    <script src="main.js"></script>
+    <script src="abc.js"></script>
+    <script src="game-helper.js"></script>
+
+    <script>
+      // Game control functions
+      function setScore(score) {
+        if (window.gameHelper) {
+          window.gameHelper.setScore(score);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function addScore(points) {
+        if (window.gameHelper) {
+          window.gameHelper.addScore(points);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function setTargetScore(target) {
+        if (window.gameHelper) {
+          window.gameHelper.setTargetScore(target);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function setLives(lives) {
+        if (window.gameHelper) {
+          window.gameHelper.setLives(lives);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function addLives(lives) {
+        if (window.gameHelper) {
+          window.gameHelper.addLives(lives);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function setMaxLives(maxLives) {
+        if (window.gameHelper) {
+          window.gameHelper.setMaxLives(maxLives);
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function startGame() {
+        if (window.gameHelper) {
+          window.gameHelper.startGame();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function pauseGame() {
+        if (window.gameHelper) {
+          window.gameHelper.pauseGame();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function replayGame() {
+        if (window.gameHelper) {
+          window.gameHelper.replayGame();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function godMode() {
+        if (window.gameHelper) {
+          window.gameHelper.godMode();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function instantWin() {
+        if (window.gameHelper) {
+          window.gameHelper.instantWin();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function clearAll() {
+        if (window.gameHelper) {
+          window.gameHelper.clearAll();
+          updateStatus();
+        } else {
+          showError("Game Helper chưa sẵn sàng!");
+        }
+      }
+
+      function updateStatus() {
+        if (window.gameHelper) {
+          const info = window.gameHelper.getGameInfo();
+          if (info) {
+            document.getElementById("statusContent").innerHTML = `
+                        <p><strong>Score:</strong> ${info.score} / ${
+              info.targetScore
+            }</p>
+                        <p><strong>Lives:</strong> ${info.lives} / ${
+              info.maxLives
+            }</p>
+                        <p><strong>Playing:</strong> ${
+                          info.isPlaying ? "Yes" : "No"
+                        }</p>
+                        <p><strong>Enemies:</strong> ${info.enemyCount}</p>
+                        <p><strong>Items:</strong> ${info.itemCount}</p>
+                        <p><strong>Position:</strong> (${info.characterPosition.x.toFixed(
+                          1
+                        )}, ${info.characterPosition.y.toFixed(1)})</p>
+                    `;
+          }
+        }
+      }
+
+      function showError(message) {
+        const statusDiv = document.getElementById("status");
+        statusDiv.innerHTML = `<div class="error">❌ ${message}</div>`;
+      }
+
+      function showSuccess(message) {
+        const statusDiv = document.getElementById("status");
+        statusDiv.innerHTML = `<div class="success">✅ ${message}</div>`;
+      }
+
+      // Check game status every 2 seconds
+      setInterval(() => {
+        if (window.gameHelper) {
+          updateStatus();
+        }
+      }, 2000);
+
+      // Initial status check
+      setTimeout(() => {
+        if (window.gameHelper) {
+          showSuccess("Game Helper đã sẵn sàng!");
+          updateStatus();
+        } else {
+          showError("Game Helper chưa load được!");
+        }
+      }, 5000);
+    </script>
+  </body>
+</html>

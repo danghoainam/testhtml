@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        overflow: hidden;
+      }
+      #gameContainer {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+      #panel_loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        z-index: 1000;
+      }
+      #panel_audio {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+      }
+      #panel_play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+      #panel_replay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+      #scoreText {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        font-size: 24px;
+        z-index: 100;
+      }
+      #liveText {
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        color: white;
+        font-size: 20px;
+        z-index: 100;
+      }
+      #instruction {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        z-index: 100;
+      }
+      #audio_btn,
+      #shieldBooster,
+      #scoreBooster {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      #replay_btn {
+        background: #4caf50;
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gameContainer">
+      <div id="panel_loading">Loading Game...</div>
+
+      <div id="panel_audio" style="display: none">
+        <button id="audio_btn">🔊</button>
+      </div>
+
+      <div id="panel_play" style="display: none">
+        <div id="instruction">Click to start playing!</div>
+        <button id="shieldBooster">🛡️ Shield</button>
+        <button id="scoreBooster">⭐ Score</button>
+      </div>
+
+      <div id="panel_replay" style="display: none">
+        <button id="replay_btn">Play Again</button>
+      </div>
+
+      <div id="scoreText">Score: 0/0</div>
+      <div id="liveText">Lives: 3</div>
+    </div>
+
+    <!-- Load game scripts -->
+    <script src="main.js"></script>
+    <script src="abc.js"></script>
+    <script src="game-helper.js"></script>
+
+    <script>
+      // Debug info
+      console.log("Game HTML loaded");
+
+      // Check if game loaded
+      setTimeout(() => {
+        console.log("Checking game status...");
+        console.log("window.Al:", window.Al);
+        console.log("window.wl:", window.wl);
+        console.log("window.autoPlayer:", window.autoPlayer);
+
+        if (window.Al && window.Al.getInstance) {
+          console.log("✅ Game loaded successfully!");
+          const gameController = window.Al.getInstance();
+          console.log("Game controller:", gameController);
+        } else if (window.wl && window.wl.getInstance) {
+          console.log("✅ Game loaded via wl!");
+          const gameController = window.wl.getInstance();
+          console.log("Game controller:", gameController);
+        } else {
+          console.log("❌ Game not loaded yet");
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>

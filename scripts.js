@@ -236,7 +236,7 @@ function getlistqq() {
 }
 function getlistyy() {
   const url =
-    "https://api.t3cdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+    "https://api.fnccdn.com/511/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=200&labelId=1";
 
   fetch(url, {
     method: "POST",
@@ -255,7 +255,7 @@ function getlistyy() {
     },
     body: JSON.stringify({
       pageNum: 1,
-      pageSize: 50,
+      pageSize: 100,
       labelId: 1,
     }),
   })
@@ -273,7 +273,7 @@ function getlistyy() {
 }
 function getlist789() {
   const url =
-    "https://i.t3cdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=50&labelId=1";
+    "https://api.fnccdn.com/560/api/live-service/h5/v5/public/live/lives?pageNum=1&pageSize=100&labelId=1";
 
   fetch(url, {
     method: "POST",
@@ -292,7 +292,7 @@ function getlist789() {
     },
     body: JSON.stringify({
       pageNum: 1,
-      pageSize: 50,
+      pageSize: 100,
       labelId: 1,
     }), // Chuyển dữ liệu thành chuỗi JSON
   })
@@ -548,7 +548,7 @@ function getLinkqq(liveId, anchorId, liveStatus, type) {
 }
 function getLinkyy(liveId, anchorId, liveStatus, type) {
   const url =
-    "https://api.t3cdn.com/511/api/live-service/h5/v3/public/live/room-info";
+    "https://api.fnccdn.com/511/api/live-service/v4/public/live/room-info";
 
   fetch(url, {
     method: "POST",
@@ -571,7 +571,7 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
   })
     .then((response) => response.json())
     .then((data) => {
-      let link = decryptString(data.pullAddress);
+      let link = decryptString(data.unlDefPa);
       console.log(link);
       location.href = `/video.html?link=${link}`;
     })
@@ -581,7 +581,7 @@ function getLinkyy(liveId, anchorId, liveStatus, type) {
 }
 function getLink789(liveId, anchorId, liveStatus, type) {
   const url =
-    "https://api.t3cdn.com/560/api/live-service/v4/public/live/room-info";
+    "https://api.fnccdn.com/560/api/live-service/v4/public/live/room-info";
 
   fetch(url, {
     method: "POST",
